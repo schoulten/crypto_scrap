@@ -1,0 +1,18 @@
+Package: cryptoscrap
+Title: Cryptocurrency Prices Web-Scraping with GitHub Actions
+Version: 0.0.0.9000
+Authors@R: 
+    person(given = "Fernando",
+           family = "da Silva",
+           role = c("aut", "cre"),
+           email = "fernando@fortietwo.com",
+           comment = c(ORCID = "0000-0002-7491-6930"))
+Description: Web scrapping of cryptocurrency prices from TradingView website.
+License: MIT + file LICENSE
+Encoding: UTF-8
+LazyData: true
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.1.1
+Imports: 
+    purrr,
+    rvest
