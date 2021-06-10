@@ -1,0 +1,32 @@
+---
+title: "Crypto-Dashboard"
+output: 
+  flexdashboard::flex_dashboard:
+    orientation: columns
+    vertical_layout: fill
+---
+
+```{r setup, include=FALSE}
+# Packages
+if (!require("pacman")) install.packages("pacman")
+pacman::p_load(
+  "rmarkdown",
+  "flexdashboard",
+  "devtools",
+  "DT"
+  )
+
+# Web-scrapping data
+devtools::load_all()
+crypto_tbl <- crypt_scrap()
+```
+
+Column
+-----------------------------------------------------------------------
+
+### Crypto coins (prices in USD)
+
+```{r table}
+# Creata datatable
+DT::datatable(crypto_tbl)
+```
