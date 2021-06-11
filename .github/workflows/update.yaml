@@ -4,7 +4,7 @@ on:
       - main
       - master
   schedule:
-    - cron: "10 8-21 * * *"
+    - cron: "0 * * * *"
 
 name: Dashboard update
 
