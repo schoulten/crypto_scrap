@@ -1,0 +1,58 @@
+on:
+  schedule:
+    - cron: "10 8-21 * * *"
+
+name: Dashboard update
+
+jobs:
+  Dashboard-update:
+    runs-on: windows-latest
+    env:
+      GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
+    steps:
+      - uses: actions/checkout@v2
+      - uses: r-lib/actions/setup-r@v1
+
+      - name: Cache packages
+        uses: actions/cache@v2
+        with:
+          path: ~\AppData\Local\renv
+          key: ${{ runner.os }}-renv-${{ hashFiles('**/renv.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-renv-
+
+      - name: Restore packages
+        run: |
+          if (!requireNamespace("renv", quietly = TRUE)) install.packages("renv")
+          renv::restore()
+        shell: Rscript {0}
+
+      - name: Install workflow dependencies
+        run: |
+          install.packages(c("rcmdcheck", "sessioninfo", "devtools"))
+        shell: Rscript {0}
+
+      - name: Install pandoc
+        run: |
+          choco install pandoc
+
+      - name: Render Rmarkdown
+        run: |
+          devtools::load_all()
+          rmarkdown::render("index.Rmd")
+        shell: Rscript {0}
+
+      - name: Commit and push
+        run: |
+          git config --local user.email "actions@github.com"
+          git config --local user.name "GitHub Actions"
+          git add .
+          git commit -m "data updated"
+          git push
+
+      - name: Session info
+        run: |
+          options(width = 500)
+          pkgs <- installed.packages()[, "Package"]
+          sessioninfo::session_info(pkgs, include_base = TRUE)
+        shell: Rscript {0}

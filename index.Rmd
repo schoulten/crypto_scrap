@@ -21,12 +21,17 @@ devtools::load_all()
 crypto_tbl <- crypt_scrap()
 ```
 
+Column {.sidebar data-width=180}
+-----------------------------------------------------------------------
+
+`r paste0("Last update: ", Sys.time())`
+
 Column
 -----------------------------------------------------------------------
 
 ### Crypto coins (prices in USD)
 
 ```{r table}
-# Creata datatable
+# Create datatable
 DT::datatable(crypto_tbl)
 ```
