@@ -26,6 +26,9 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-renv-
 
+      - name: Install curl
+        run: sudo apt -y install libcurl4-openssl-dev
+
       - name: Install libgit2-dev
         run: sudo apt install libgit2-dev
 
