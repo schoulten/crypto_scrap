@@ -32,6 +32,9 @@ jobs:
       - name: Install libgit2-dev
         run: sudo apt install libgit2-dev
 
+      - name: Install R textshaping deps
+        run: sudo apt-get install libharfbuzz-dev libfribidi-dev
+
       - name: Restore packages
         run: |
           if (!requireNamespace("renv", quietly = TRUE)) install.packages("renv")
